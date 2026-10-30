@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agent 转型学习计划 · 24 周</title>
+<style>
+  :root {
+    --bg: #080b14;
+    --panel: rgba(17, 24, 39, 0.72);
+    --panel-2: rgba(30, 41, 59, 0.55);
+    --line: rgba(148, 163, 184, 0.16);
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --faint: #64748b;
+    --cyan: #5eead4;
+    --violet: #a78bfa;
+    --amber: #fbbf24;
+    --rose: #fb7185;
+    --green: #34d399;
+    --radius: 18px;
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body {
+    overflow-x: hidden;
+    margin: 0;
+    background:
+      radial-gradient(1200px 700px at 12% -8%, rgba(94, 234, 212, 0.14), transparent 55%),
+      radial-gradient(1000px 600px at 88% 0%, rgba(167, 139, 250, 0.14), transparent 55%),
+      radial-gradient(900px 700px at 50% 110%, rgba(251, 191, 36, 0.06), transparent 60%),
+      var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: rgba(148, 163, 184, .12);
+    border: 1px solid rgba(148, 163, 184, .12); padding: 1px 5px; border-radius: 5px;
+    color: #d1fae5; white-space: nowrap;
+  }
+  ::selection { background: rgba(94, 234, 212, .28); color: #fff; }
+  .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+  /* Header */
+  header { padding: 36px 0 8px; }
+  .topline {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    font-size: 13px; color: var(--muted); letter-spacing: .04em;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--violet));
+    box-shadow: 0 0 18px rgba(94, 234, 212, .6);
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px;
+    background: rgba(15, 23, 42, .55); color: var(--muted); font-size: 12px;
+  }
+
+  /* Hero */
+  .hero { padding: 54px 0 26px; }
+  .eyebrow {
+    display: inline-flex; gap: 10px; align-items: center;
+    color: var(--cyan); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  }
+  .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--cyan); opacity: .7; }
+  h1 {
+    margin: 16px 0 14px; font-size: clamp(34px, 6vw, 62px); line-height: 1.08; letter-spacing: -0.03em;
+    background: linear-gradient(120deg, #fff 10%, #c7f9ef 45%, #c4b5fd 85%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .lead { max-width: 780px; color: var(--muted); font-size: clamp(15px, 1.6vw, 18px); }
+  .lead strong { color: var(--text); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 28px; }
+  .stat {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px;
+    backdrop-filter: blur(14px); min-width: 0;
+  }
+  .stat b { display: block; font-size: 26px; line-height: 1.2; color: #fff; letter-spacing: -0.02em; }
+  .stat span { font-size: 12px; color: var(--muted); }
+  .stat b, .stat span, .lead, .phase p, .phase h3, .card p, .card li, .panel p {
+    overflow-wrap: anywhere;
+  }
+
+  /* Progress */
+  .progress-panel {
+    margin-top: 26px; display: grid; grid-template-columns: 190px 1fr; gap: 22px;
+    background: linear-gradient(160deg, rgba(23, 33, 53, .9), rgba(13, 19, 33, .75));
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+  }
+  .ring-wrap { position: relative; width: 150px; height: 150px; margin: auto; }
+  .ring { transform: rotate(-90deg); }
+  .ring-bg { fill: none; stroke: rgba(148, 163, 184, .16); stroke-width: 10; }
+  .ring-fg { fill: none; stroke: url(#grad); stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset .5s ease; }
+  .ring-label {
+    position: absolute; inset: 0; display: grid; place-content: center; text-align: center;
+  }
+  .ring-label b { font-size: 30px; color: #fff; line-height: 1; }
+  .ring-label span { font-size: 11px; color: var(--muted); margin-top: 6px; }
+  .progress-copy h2 { margin: 2px 0 8px; font-size: 20px; }
+  .progress-copy p { margin: 0 0 14px; color: var(--muted); font-size: 14px; }
+  .progress-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    border: 1px solid var(--line); background: rgba(15, 23, 42, .7); color: var(--text);
+    padding: 9px 14px; border-radius: 10px; font-size: 13px; cursor: pointer; transition: .2s;
+  }
+  .btn:hover { border-color: rgba(94, 234, 212, .55); color: var(--cyan); transform: translateY(-1px); }
+  .btn.primary { background: linear-gradient(135deg, rgba(94,234,212,.16), rgba(167,139,250,.16)); border-color: rgba(94,234,212,.35); }
+
+  /* Section */
+  section { padding: 44px 0 6px; }
+  .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+  .section-head h2 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -0.02em; }
+  .section-head p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+  .section-head .num { color: var(--faint); font-size: 12px; letter-spacing: .12em; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 7px; top: 10px; bottom: 10px; width: 1px;
+    background: linear-gradient(to bottom, rgba(94,234,212,.5), rgba(167,139,250,.35), rgba(148,163,184,.08));
+  }
+  .phase {
+    position: relative; margin-bottom: 14px; min-width: 0;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px;
+    transition: .2s; backdrop-filter: blur(12px);
+  }
+  .phase:hover { border-color: rgba(94, 234, 212, .28); transform: translateX(2px); }
+  .phase::before {
+    content: ""; position: absolute; left: -25px; top: 24px; width: 11px; height: 11px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--cyan); box-shadow: 0 0 0 4px rgba(94,234,212,.08);
+  }
+  .phase.done { opacity: .62; }
+  .phase.done::before { background: var(--green); border-color: var(--green); }
+  .phase-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .phase-idx { font-size: 12px; color: var(--faint); font-variant-numeric: tabular-nums; min-width: 34px; }
+  .phase h3 { margin: 0; font-size: 17px; letter-spacing: -0.01em; }
+  .phase-week { font-size: 12px; color: var(--cyan); border: 1px solid rgba(94,234,212,.22); padding: 2px 8px; border-radius: 999px; }
+  .phase p { margin: 8px 0 10px; color: var(--muted); font-size: 13.5px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-size: 11px; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); padding: 3px 8px; border-radius: 6px; }
+  .check {
+    margin-left: auto; display: inline-flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted);
+    cursor: pointer; user-select: none;
+  }
+  .check input { appearance: none; width: 16px; height: 16px; border-radius: 5px; border: 1px solid var(--faint); background: transparent; cursor: pointer; position: relative; }
+  .check input:checked { background: var(--green); border-color: var(--green); }
+  .check input:checked::after {
+    content: "✓"; position: absolute; inset: 0; display: grid; place-content: center; color: #06281f; font-size: 11px; font-weight: 900;
+  }
+
+  /* Cards */
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px;
+    backdrop-filter: blur(12px); position: relative; overflow: hidden; min-width: 0;
+  }
+  .card::after {
+    content: ""; position: absolute; inset: auto -40% -60% auto; width: 180px; height: 180px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(94,234,212,.12), transparent 70%); pointer-events: none;
+  }
+  .card .k { font-size: 11px; letter-spacing: .12em; color: var(--faint); text-transform: uppercase; }
+  .card h3 { margin: 8px 0 8px; font-size: 18px; }
+  .card p { margin: 0 0 14px; color: var(--muted); font-size: 13.5px; }
+  .card ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 13px; }
+  .card li { margin: 5px 0; }
+
+  /* Quick start */
+  .quick {
+    display: grid; grid-template-columns: 1.1fr .9fr; gap: 14px;
+  }
+  .panel {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; min-width: 0;
+  }
+  .panel h3 { margin: 0 0 12px; font-size: 18px; }
+  .steps { list-style: none; padding: 0; margin: 0; counter-reset: s; }
+  .steps li {
+    counter-increment: s; position: relative; padding: 9px 0 9px 38px; color: var(--muted); font-size: 13.5px;
+    border-bottom: 1px dashed rgba(148,163,184,.12);
+  }
+  .steps li:last-child { border-bottom: 0; }
+  .steps li::before {
+    content: counter(s); position: absolute; left: 0; top: 8px; width: 24px; height: 24px; border-radius: 8px;
+    display: grid; place-content: center; background: rgba(94,234,212,.1); color: var(--cyan);
+    border: 1px solid rgba(94,234,212,.2); font-size: 12px; font-weight: 700;
+  }
+  .links { display: grid; gap: 8px; }
+  .link-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: rgba(15,23,42,.45);
+    font-size: 13px; color: var(--text); transition: .2s;
+  }
+  .link-row:hover { border-color: rgba(94,234,212,.35); text-decoration: none; transform: translateX(2px); }
+  .link-row span { color: var(--faint); font-size: 11px; }
+  .link-row b { font-weight: 600; }
+
+  /* Footer */
+  footer { padding: 44px 0 60px; color: var(--faint); font-size: 12px; }
+  footer .line { height: 1px; background: var(--line); margin-bottom: 18px; }
+  .foot-grid { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+  @media (max-width: 860px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .progress-panel { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .quick { grid-template-columns: 1fr; }
+    .timeline { padding-left: 22px; }
+    .phase::before { left: -19px; }
+  }
+  @media (max-width: 520px) {
+    .wrap { width: calc(100% - 24px); }
+    header { padding-top: 22px; }
+    .topline { font-size: 11px; }
+    .badge { display: none; }
+    .stats { grid-template-columns: 1fr; }
+    .stat { padding: 14px; }
+    .stat b { font-size: 22px; }
+    .stat:last-child { grid-column: auto; }
+    .phase { padding: 14px; }
+    .phase-top { gap: 8px; }
+    .check { margin-left: 0; width: 100%; justify-content: flex-end; }
+    .timeline { padding-left: 18px; }
+    .phase::before { left: -16px; }
+    .progress-copy h2 { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="topline">
+      <div class="brand"><span class="dot"></span> AGENT JOURNEY</div>
+      <div class="badge">2026 · 20/24 WEEKS · 5–12H / WEEK</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="padding-top:34px">
+      <div class="eyebrow">From Vue Frontend to Agent Engineer</div>
+      <h1>从 Vue 前端<br />到 Agent 工程师</h1>
+      <p class="lead">
+        不是“前端转算法”，而是把前端工程能力迁移到 <strong>Agent 的可靠性、评测与用户体验</strong> 上。
+        先走 <strong>20 周轻量主线</strong>（每周 5–6h，做出 1 个上线项目），再用 <strong>24 周标准版</strong>补深度。
+      </p>
+
+      <div class="stats">
+        <div class="stat"><b>20/24</b><span>周 · 轻量 / 标准</span></div>
+        <div class="stat"><b>~100/288h</b><span>总投入（按路线）</span></div>
+        <div class="stat"><b>1+2</b><span>上线项目 + 加分作品</span></div>
+        <div class="stat"><b>1</b><span>目标：AI 应用 / Agent 工程</span></div>
+      </div>
+
+      <div class="progress-panel">
+        <div class="ring-wrap">
+          <svg class="ring" width="150" height="150" viewBox="0 0 150 150">
+            <defs>
+              <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#5eead4" />
+                <stop offset="100%" stop-color="#a78bfa" />
+              </linearGradient>
+            </defs>
+            <circle class="ring-bg" cx="75" cy="75" r="62" />
+            <circle class="ring-fg" id="ringFg" cx="75" cy="75" r="62"
+              stroke-dasharray="389.56" stroke-dashoffset="389.56" />
+          </svg>
+          <div class="ring-label"><b id="pct">0%</b><span>阶段完成</span></div>
+        </div>
+        <div class="progress-copy">
+          <h2>你的进度，只存在这台浏览器</h2>
+          <p>这里勾选的是标准版 10 个阶段；轻量版请用 05 的 20 周表。不要追求 100%，追求“每周都有交付”。</p>
+          <div class="progress-actions">
+            <button class="btn primary" id="resetBtn">重置进度</button>
+            <a class="btn" href="./05-轻量主线-20周.md">打开轻量主线</a>
+            <a class="btn" href="./02-24周学习计划.md">打开标准版</a>
+            <a class="btn" href="./进度表.csv">下载进度表</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <div class="section-head">
+        <div>
+          <div class="num">01 / ROADMAP</div>
+          <h2>标准版十个阶段</h2>
+          <p>轻量主线是 20 周版本（见 05）；这里展示 24 周标准版的完整阶段。</p>
+        </div>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <section id="projects">
+      <div class="section-head">
+        <div>
+          <div class="num">02 / PORTFOLIO</div>
+          <h2>标准版三个作品</h2>
+          <p>轻量版只做 Agent Workbench；mini-agent 是 lab，MCP 是加餐。</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="k">01 · FOUNDATION</div>
+          <h3>mini-agent</h3>
+          <p>从零写一个 300–800 行的 TS Agent，证明你懂 loop/tool/context，而不是只会调框架。</p>
+          <ul>
+            <li>5 个工具 + Zod + 错误回传</li>
+            <li>max steps / timeout / 预算</li>
+            <li>subagent / memory / compaction</li>
+            <li>JSONL trace + 失败分类</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="k">02 · FLAGSHIP</div>
+          <h3>Agent Workbench</h3>
+          <p>面向 Vue 代码库的 Agent 工作台：review / fix / test / docs，diff 审批、trace、eval。</p>
+          <ul>
+            <li>Nuxt + Vue + AI SDK + assistant-ui</li>
+            <li>NestJS + Postgres + Redis + Docker</li>
+            <li>30 条评测 + 成本/延迟</li>
+            <li>多租户 / 沙箱 / 红队</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="k">03 · OPEN SOURCE</div>
+          <h3>Vue MCP + Skill</h3>
+          <p>为 Vue 组件库做 MCP Server + SKILL.md，证明你懂协议、扩展与开源协作。</p>
+          <ul>
+            <li>5 个 MCP tools + 3 resources</li>
+            <li>SKILL.md 标准化 review 流程</li>
+            <li>20 条评测 + npm 发布</li>
+            <li>2 个社区 PR</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="start">
+      <div class="section-head">
+        <div>
+          <div class="num">03 / START NOW</div>
+          <h2>7 天启动清单</h2>
+          <p>不要等“准备好”。先把环境和基线做出来。</p>
+        </div>
+      </div>
+      <div class="quick">
+        <div class="panel">
+          <h3>本周就做</h3>
+          <ol class="steps">
+            <li>建仓库 <code>agent-journey</code>：notes / labs / projects / evals / writing</li>
+            <li>装 Node 22+、pnpm、Git，选一个 AI 编程工具</li>
+            <li>准备 DeepSeek + OpenRouter/SiliconFlow 两个 Key，设 ¥200–500 预算</li>
+            <li>写 baseline：JS/TS、Vue/React、Node、Python、后端、英语各 1–5 分</li>
+            <li>写学习契约：每周几小时、6 个月后拿什么、什么情况下调整</li>
+            <li>选 3 个目标岗位，把 JD 关键词抄下来</li>
+          </ol>
+        </div>
+        <div class="panel">
+          <h3>直接打开</h3>
+          <div class="links">
+            <a class="link-row" href="./README.md"><b>README · 总览</b><span>先读</span></a>
+            <a class="link-row" href="./05-轻量主线-20周.md"><b>05 · 轻量主线</b><span>推荐先看</span></a>
+            <a class="link-row" href="./01-定位与策略.md"><b>01 · 定位与策略</b><span>第 0 周</span></a>
+            <a class="link-row" href="./02-24周学习计划.md"><b>02 · 标准版</b><span>进阶</span></a>
+            <a class="link-row" href="./03-项目与求职.md"><b>03 · 项目与求职</b><span>项目/面试</span></a>
+            <a class="link-row" href="./04-资源清单.md"><b>04 · 资源清单</b><span>随时查</span></a>
+            <a class="link-row" href="./进度表.csv"><b>标准版进度表</b><span>可打勾</span></a>
+            <a class="link-row" href="./轻量主线-20周.csv"><b>轻量版进度表</b><span>可打勾</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="line"></div>
+    <div class="foot-grid">
+      <div>Agent 转型学习计划 · 2026-10-27 · 以官方文档与源码为准</div>
+      <div>关键依据：<a href="https://arxiv.org/abs/2609.00006" target="_blank" rel="noreferrer">Harness Engineering</a> · <a href="https://walkinglabs.github.io/learn-harness-engineering/zh/" target="_blank" rel="noreferrer">Learn Harness</a> · <a href="https://ai-sdk.dev/docs/introduction" target="_blank" rel="noreferrer">AI SDK</a></div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  const phases = [
+    { id: "p0",  idx: "00", title: "准备周：环境、基线、契约", weeks: "Week 0", desc: "工具链、API Key、预算、自评、学习契约。先把“怎么学”定下来。", tags: ["Setup", "Baseline"] },
+    { id: "p1",  idx: "01", title: "LLM 原理边界", weeks: "Week 1–2", desc: "Token / Embedding / Transformer / 采样 / KV Cache / Context Rot。够用即可，不啃数学。", tags: ["LLM", "Theory"] },
+    { id: "p2",  idx: "02", title: "Agent 核心基础", weeks: "Week 3–5", desc: "从零写 loop、5 个工具、trace、subagent、memory、意图路由、RAG 入门。", tags: ["Agent", "Tools", "Memory"] },
+    { id: "p3",  idx: "03", title: "Agent 工程", weeks: "Week 6–8", desc: "Prompt / Context / Harness / Loop / Graph / Cache。从“能跑”到“可靠”。", tags: ["Harness", "Context", "Eval"] },
+    { id: "p4",  idx: "04", title: "源码解剖", weeks: "Week 9–10", desc: "读 Claude Code / pi / OpenClaw / DeepSeek Harness，提炼 7 个子系统与可复用模式。", tags: ["Source", "Architecture"] },
+    { id: "p5",  idx: "05", title: "AI 前端产品工程", weeks: "Week 11–14", desc: "流式、工具 UI、生成式 UI、审批、中断/恢复、trace/eval 面板、React 移植。", tags: ["Frontend", "AG-UI", "UX"] },
+    { id: "p6",  idx: "06", title: "RAG / Memory / Eval / Safety", weeks: "Week 15–17", desc: "知识库、引用、30 条评测、trace、红队、权限与沙箱。", tags: ["RAG", "Eval", "Safety"] },
+    { id: "p7",  idx: "07", title: "后端、Python、部署", weeks: "Week 18–20", desc: "NestJS + Postgres + Redis + FastAPI 微服务 + Docker + 压测 + 公网。", tags: ["Backend", "Python", "Deploy"] },
+    { id: "p8",  idx: "08", title: "开源、写作、作品集", weeks: "Week 21–22", desc: "2 个 PR、MCP Server + Skill Pack、4 篇博客、3 个视频、简历。", tags: ["Open Source", "Writing"] },
+    { id: "p9",  idx: "09", title: "求职与面试", weeks: "Week 23–24", desc: "30 份投递、模拟面、40 题八股、4 个系统设计、谈薪与 30/60/90。", tags: ["Job", "Interview"] }
+  ];
+
+  const STORAGE_KEY = "agent-plan-progress-v1";
+  const timeline = document.getElementById("timeline");
+  const ringFg = document.getElementById("ringFg");
+  const pctEl = document.getElementById("pct");
+  const CIRC = 2 * Math.PI * 62;
+
+  function load() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
+    catch { return {}; }
+  }
+  function save(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+  }
+
+  function render() {
+    const state = load();
+    timeline.innerHTML = phases.map((p) => {
+      const done = !!state[p.id];
+      return `
+        <div class="phase ${done ? "done" : ""}" data-id="${p.id}">
+          <div class="phase-top">
+            <span class="phase-idx">${p.idx}</span>
+            <h3>${p.title}</h3>
+            <span class="phase-week">${p.weeks}</span>
+            <label class="check">
+              <input type="checkbox" data-check="${p.id}" ${done ? "checked" : ""} />
+              完成
+            </label>
+          </div>
+          <p>${p.desc}</p>
+          <div class="tags">${p.tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>
+        </div>`;
+    }).join("");
+
+    timeline.querySelectorAll("input[data-check]").forEach((input) => {
+      input.addEventListener("change", (e) => {
+        const id = e.target.getAttribute("data-check");
+        const next = load();
+        next[id] = e.target.checked;
+        save(next);
+        e.target.closest(".phase").classList.toggle("done", e.target.checked);
+        updateRing();
+      });
+    });
+    updateRing();
+  }
+
+  function updateRing() {
+    const state = load();
+    const done = phases.filter((p) => state[p.id]).length;
+    const ratio = done / phases.length;
+    ringFg.style.strokeDasharray = String(CIRC);
+    ringFg.style.strokeDashoffset = String(CIRC * (1 - ratio));
+    pctEl.textContent = Math.round(ratio * 100) + "%";
+  }
+
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    if (!confirm("重置所有阶段进度？")) return;
+    localStorage.removeItem(STORAGE_KEY);
+    render();
+  });
+
+  render();
+</script>
+</body>
+</html>
