@@ -19,11 +19,13 @@ const p3 = ` <Select
 // 10个emoji
 const p4 =
   "emoji :smile: :joy: :laughing :grinning :smirk :smile :smile :smile :smile :smile";
+// 注意：p4 是 ASCII 短代码，不是真 emoji——所以这组测不出 emoji 的 token 成本。
+// 真 emoji（含 ZWJ 组合/国旗/肤色）的实测见 w1-report.mjs 表 4。
 const count1 =await countTokens(p1)
 console.log(count1) //26
 const count2 =await countTokens(p2)
 console.log(count2) //41
 const count3 =await countTokens(p3)
-console.log(count3) //76
+console.log(count3) //78
 const count4 =await countTokens(p4)
 console.log(count4) //34

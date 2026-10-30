@@ -20,10 +20,15 @@ const p3 = ` <Select
 // 10个emoji
 const p4 =
   "emoji :smile: :joy: :laughing :grinning :smirk :smile :smile :smile :smile :smile";
-// 换模型gpt2，查看token数
-const enc = getEncoding("gpt-4");
-//gpt2  116 42 270 33
-// o200k_base  32 40 76 32
+// 注意：js-tiktoken 的 getEncoding 只认 gpt2 / r50k_base / p50k_base / p50k_edit /
+// cl100k_base / o200k_base；"gpt-4" 是 Python tiktoken 的 model 别名，传进来会抛
+// Error: Unknown encoding。想按模型名取编码，用 encodingForModel("gpt-4")。
+const enc = getEncoding("cl100k_base"); // GPT-4 / GPT-3.5 时代的词表
+// 实测（2026-10-30，node v22.14.0 / js-tiktoken 1.0.21）：
+// cl100k_base  51 40 75 33
+// o200k_base   32 40 76 32
+// gpt2_r50k   116 42 270 33
+// 完整四组 × 五个 tokenizer + 成本表见 w1-report.mjs
 
 
 

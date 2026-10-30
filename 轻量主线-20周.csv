@@ -1,5 +1,5 @@
 ﻿"week","phase","theme","read_1.5h","build_3h","acceptance","hours","status","notes"
-"1","模型边界","Transformer 直觉 + Tokenization","3Blue1Brown GPT 是什么；Illustrated Transformer","token 四组对照 + 成本计算","解释中文为什么更费 token；算出成本差","5","未开始",""
+"1","模型边界","Transformer 直觉 + Tokenization","3Blue1Brown GPT 是什么；Illustrated Transformer","token 四组对照 + 成本计算","按词表代际解释中文是否更贵；排出五个成本杠杆","5","已学-待补齐","见 week/w1/W1-复盘-2026-10-30.md"
 "2","模型边界","Attention 与 Q/K/V","3Blue1Brown 注意力机制；Illustrated Transformer Self-Attention","TS 手写单头 attention + 色块权重","白板画 QKV；解释 O(n²)","5","未开始",""
 "3","模型边界","自回归 + Logits/Softmax/采样","HF How to generate；Karpathy 采样片段","写 4 个采样函数 + 分布实验","给重复/发散/胡说 case 选参数","5","未开始",""
 "4","模型边界","KV Cache / 约束解码 / Context Rot","OpenAI Structured Outputs；Anthropic Context Engineering；Chroma","JSON A/B + 长上下文测试","解释 prefill/decode；JSON 约束","5","未开始",""

@@ -1,4 +1,8 @@
 {
+  "type": "module",
+  "scripts": {
+    "report": "node w1-report.mjs"
+  },
   "dependencies": {
     "@deepseek-kit/tokenizer": "^0.0.1",
     "js-tiktoken": "^1.0.21"
